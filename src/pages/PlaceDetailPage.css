@@ -1,0 +1,809 @@
+/* PlaceDetailPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+.place-detail-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.place-detail-container {
+  width: 100%;
+  max-width: 768px; /* 태블릿 크기로 확장 */
+  min-width: 320px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-top: 64px; /* 헤더 높이만큼 상단 여백 추가 */
+}
+
+/* Header */
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.back-button, .home-button {
+  background: #f0f0f0;
+  border: none;
+  color: #333;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover, .home-button:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.detail-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+/* Loading & Error Screens */
+.loading-screen, .error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-spinner-large {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f0f0f0;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.back-button-large {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button-large:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Image Gallery */
+.image-gallery {
+  position: relative;
+  margin-top: 10px; /* 헤더와 간격 확보 */
+}
+
+.main-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.place-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.bookmark-floating {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-floating:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.bookmark-floating.bookmarked {
+  background: rgba(255, 192, 203, 0.9);
+}
+
+.image-thumbnails {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.thumbnail.active {
+  border-color: #667eea;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+/* Place Info */
+.place-info {
+  padding: 20px;
+}
+
+.place-header {
+  margin-bottom: 16px;
+}
+
+.place-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.rating-stars {
+  font-size: 16px;
+}
+
+.rating-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.rating-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.place-description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  margin: 0 0 16px 0;
+}
+
+/* Category Tags */
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-tag {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.category-tag.primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.category-tag.secondary {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+/* Details Section */
+.details-section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detail-content h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.detail-content p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Facilities */
+.facilities-section {
+  padding: 0 20px 20px;
+}
+
+.facilities-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+.facilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.facility-item {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Reviews Section */
+.reviews-section {
+  padding: 0 20px 20px;
+  border-top: 8px solid #f8f9fa;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.reviews-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.write-review-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.write-review-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Review Form */
+.review-form {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.rating-input {
+  margin-bottom: 12px;
+}
+
+.rating-input label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.star-rating {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  opacity: 0.3;
+}
+
+.star.active {
+  opacity: 1;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  resize: vertical;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submit-review-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.submit-review-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.submit-review-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Reviews List */
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-item {
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.reviewer-avatar {
+  width: 36px;
+  height: 36px;
+  background: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.reviewer-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.review-rating {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.review-text {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+  margin: 0 0 8px 0;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px 20px;
+}
+
+.action-button {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.action-button.primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+}
+
+.action-button.secondary {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #495057;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+}
+
+.action-button.primary:hover {
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.action-button.secondary:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Bottom Navigation */
+.bottom-navigation {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.nav-button {
+  flex: 1;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #495057;
+}
+
+.nav-button.primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+}
+
+.nav-button.primary:hover {
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.nav-button:not(.primary):hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .place-detail-wrapper {
+    padding: 10px;
+  }
+  
+  .place-detail-container {
+    border-radius: 12px;
+    margin: 0 10px;
+  }
+  
+  .place-info {
+    padding: 16px;
+  }
+  
+  .details-section {
+    padding: 0 16px;
+  }
+  
+  .reviews-section {
+    padding: 0 16px 16px;
+    padding-top: 16px;
+  }
+  
+  .action-buttons {
+    padding: 0 16px 16px;
+  }
+  
+  .bottom-navigation {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .place-detail-wrapper {
+    padding: 5px;
+  }
+  
+  .place-name {
+    font-size: 20px;
+  }
+  
+  .place-description {
+    font-size: 14px;
+  }
+  
+  .main-image {
+    height: 200px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+}
+
+/* 태블릿 크기에서의 스타일링 */
+@media (min-width: 768px) {
+  .place-detail-wrapper {
+    padding: 40px 20px;
+  }
+  
+  .place-detail-container {
+    border-radius: 24px;
+    padding-top: 80px; /* 태블릿에서 헤더 높이 증가에 맞춰 조정 */
+  }
+  
+  .main-image {
+    height: 350px;
+  }
+  
+  .image-thumbnails {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+  
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .place-info {
+    padding: 30px;
+  }
+  
+  .place-name {
+    font-size: 28px;
+  }
+  
+  .place-description {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .rating-section {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .rating-stars, .rating-value {
+    font-size: 18px;
+  }
+  
+  .rating-count {
+    font-size: 16px;
+  }
+  
+  .details-section {
+    padding: 0 30px;
+    margin-bottom: 30px;
+  }
+  
+  .detail-item {
+    padding: 16px 0;
+  }
+  
+  .detail-icon {
+    font-size: 24px;
+    width: 28px;
+  }
+  
+  .detail-content h3 {
+    font-size: 16px;
+  }
+  
+  .detail-content p {
+    font-size: 16px;
+  }
+  
+  .reviews-section {
+    padding: 0 30px 30px;
+    padding-top: 30px;
+  }
+  
+  .reviews-header h3 {
+    font-size: 20px;
+  }
+  
+  .review-form {
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .review-textarea {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  
+  .submit-review-button {
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  
+  .review-item {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  
+  .reviewer-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  
+  .reviewer-name {
+    font-size: 16px;
+  }
+  
+  .review-text {
+    font-size: 16px;
+  }
+  
+  .action-buttons {
+    padding: 0 30px 30px;
+  }
+  
+  .action-button {
+    padding: 18px 20px;
+    font-size: 16px;
+  }
+  
+  .bottom-navigation {
+    padding: 30px;
+  }
+  
+  .nav-button {
+    padding: 20px;
+    font-size: 16px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles */
+.back-button:focus,
+.home-button:focus,
+.bookmark-floating:focus,
+.thumbnail:focus,
+.write-review-button:focus,
+.submit-review-button:focus,
+.action-button:focus,
+.nav-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}

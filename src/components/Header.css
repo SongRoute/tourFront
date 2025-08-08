@@ -1,0 +1,432 @@
+/* Header.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Nunito', sans-serif;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  max-width: 768px; /* 태블릿 크기로 확장 */
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header Buttons */
+.header-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.header-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.header-button:active {
+  transform: scale(0.95);
+}
+
+.header-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.header-spacer {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+/* Title Section */
+.header-title-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 12px;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.breadcrumb {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* Location Info (for home page) */
+.location-container {
+  max-width: 140px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.location-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.location-icon {
+  width: 18px;
+  height: 23px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 3px;
+}
+
+.location-icon:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.location-icon:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.location-icon:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.location-icon.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.location-icon::before {
+  content: '📍';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  filter: brightness(0) invert(1);
+}
+
+.location-icon.loading::before {
+  content: '🔄';
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.location-text {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  word-wrap: break-word;
+  max-width: 100px;
+  line-height: 1.2;
+}
+
+.location-error {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
+  cursor: help;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+
+/* Progress Bar (for chatbot page) */
+.header-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.8));
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .header-content {
+    padding: 10px 16px;
+  }
+  
+  .header-title {
+    font-size: 16px;
+  }
+  
+  .breadcrumb {
+    font-size: 10px;
+  }
+  
+  .location-text {
+    font-size: 12px;
+    max-width: 80px;
+  }
+  
+  .location-container {
+    max-width: 120px;
+  }
+  
+  /* 작은 화면에서 헤더 높이 조정 */
+  .progress-indicator {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-content {
+    padding: 8px 12px;
+  }
+  
+  .header-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .header-spacer {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .header-title {
+    font-size: 15px;
+  }
+  
+  .breadcrumb {
+    font-size: 9px;
+  }
+  
+  .button-icon {
+    font-size: 16px;
+  }
+  
+  .location-text {
+    font-size: 11px;
+    max-width: 70px;
+  }
+  
+  .location-container {
+    max-width: 100px;
+  }
+  
+  /* 매우 작은 화면에서 헤더 높이 조정 */
+  .progress-indicator {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+}
+
+/* 태블릿 크기에서의 헤더 스타일링 */
+@media (min-width: 768px) {
+  .header-content {
+    padding: 16px 32px;
+  }
+  
+  .header-title {
+    font-size: 20px;
+  }
+  
+  .breadcrumb {
+    font-size: 12px;
+  }
+  
+  .header-button {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .header-spacer {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .button-icon {
+    font-size: 20px;
+  }
+  
+  .location-text {
+    font-size: 16px;
+    max-width: 120px;
+  }
+  
+  .location-container {
+    max-width: 160px;
+  }
+  
+  .progress-indicator {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .header-button {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+  }
+  
+  .header-title,
+  .location-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .header-button,
+  .location-icon,
+  .progress-fill {
+    transition: none;
+  }
+  
+  .location-icon.loading,
+  .location-error,
+  .progress-fill::after {
+    animation: none;
+  }
+}
+
+/* Progress Indicator (for chatbot page) */
+.progress-indicator {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+/* Focus styles for accessibility */
+.header-button:focus,
+.location-icon:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .app-header {
+    background: none;
+    color: black;
+    box-shadow: none;
+    border-bottom: 2px solid black;
+  }
+  
+  .header-button,
+  .location-icon {
+    display: none;
+  }
+  
+  .header-title {
+    color: black;
+  }
+}

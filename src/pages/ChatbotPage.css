@@ -1,0 +1,883 @@
+/* ChatbotPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+.chatbot-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.chatbot-container {
+  width: 100%;
+  max-width: 768px; /* 태블릿 크기로 확장 */
+  min-width: 320px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  margin: 0 auto;
+  padding-top: 64px; /* 헤더 높이만큼 상단 여백 추가 */
+}
+
+/* Header */
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.chatbot-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.progress-indicator {
+  font-size: 14px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 4px;
+  background: #e0e0e0;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Chat Content */
+.chat-content {
+  flex: 1;
+  padding: 20px 0 24px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  animation: messageSlideIn 0.4s ease-out;
+  margin-bottom: 4px;
+}
+
+.bot-message {
+  align-self: flex-start;
+}
+
+.user-message {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bot-avatar, .user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.bot-avatar {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.user-avatar {
+  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+}
+
+.message-bubble {
+  max-width: 320px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  position: relative;
+  margin: 2px 0;
+}
+
+.bot-bubble {
+  max-width: 350px; /* 봇 메시지는 더 넓게 */
+}
+
+.user-bubble {
+  max-width: 280px; /* 사용자 메시지는 기본 크기 */
+}
+
+.message-bubble p {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Bot Options within Message Bubble */
+.bot-options {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bot-option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.bot-option-item.clickable {
+  cursor: pointer;
+}
+
+.bot-option-item.clickable:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bot-option-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bot-option-item.selected {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.bot-option-item.selected .option-title {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.option-check {
+  font-size: 16px;
+  color: #667eea;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.option-emoji {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.option-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+}
+
+.option-desc {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.2;
+}
+
+/* Bot Text Input Section */
+.bot-text-input-section {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bot-text-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  resize: vertical;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+}
+
+.bot-text-input:focus {
+  outline: none;
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.bot-text-submit {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.bot-text-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.bot-text-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Bot Text Completed */
+.bot-text-completed {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.text-completed-icon {
+  font-size: 14px;
+  color: #667eea;
+}
+
+.text-completed-text {
+  font-size: 12px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Bot Calendar Section */
+.bot-calendar-section {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendar-nav-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #667eea;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-nav-button:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.calendar-month-year {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.calendar-info {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.calendar-instruction {
+  font-size: 12px;
+  color: #666;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  padding: 8px 4px;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.calendar-day.empty {
+  cursor: default;
+}
+
+.calendar-day.available {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day.available:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.calendar-day.past {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar-day.today {
+  border: 2px solid #667eea;
+  font-weight: bold;
+}
+
+.calendar-day.selected {
+  background: #667eea !important;
+  color: white !important;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.calendar-day.in-range {
+  background: rgba(102, 126, 234, 0.2) !important;
+  color: #333 !important;
+}
+
+.calendar-selected-info {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #667eea;
+  text-align: center;
+}
+
+/* Bot Calendar Completed */
+.bot-calendar-completed {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.calendar-completed-icon {
+  font-size: 14px;
+}
+
+.calendar-completed-text {
+  font-size: 12px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.bot-bubble {
+  background: #f5f5f5;
+  color: #333;
+  border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-bubble {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: 0 1px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Answer Section - Removed (now handled within bot messages) */
+
+.choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-option {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.choice-option:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.choice-option.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.option-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.option-description {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+}
+
+/* Text Input */
+.text-input-section {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-submit-button {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.text-submit-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.text-submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.text-input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.text-input::placeholder {
+  color: #999;
+}
+
+/* Action Buttons */
+.action-buttons {
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.submit-button:hover::before {
+  left: 100%;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .chatbot-wrapper {
+    padding: 10px;
+  }
+  
+  .chatbot-container {
+    border-radius: 12px;
+    margin: 0 10px;
+  }
+  
+  .chat-content {
+    padding: 20px 16px;
+  }
+  
+  .message-bubble {
+    max-width: 220px;
+  }
+  
+  .choice-option {
+    padding: 14px;
+  }
+  
+  .option-label {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .chatbot-wrapper {
+    padding: 5px;
+  }
+  
+  .chat-content {
+    padding: 16px 12px;
+  }
+  
+  .message-bubble {
+    max-width: 200px;
+    padding: 10px 14px;
+  }
+  
+  .choice-option {
+    padding: 12px;
+  }
+  
+  .text-input {
+    padding: 14px;
+  }
+}
+
+/* 태블릿 크기에서의 스타일링 */
+@media (min-width: 768px) {
+  .chatbot-wrapper {
+    padding: 40px 20px;
+  }
+  
+  .chatbot-container {
+    border-radius: 24px;
+    padding-top: 80px; /* 태블릿에서 헤더 높이 증가에 맞춰 조정 */
+    min-height: 85vh;
+  }
+  
+  .chat-content {
+    padding: 40px 40px 30px;
+    gap: 25px;
+  }
+  
+  .message-bubble {
+    max-width: 420px;
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+
+  .bot-bubble {
+    max-width: 480px; /* 태블릿에서 봇 메시지 더 넓게 */
+  }
+
+  .user-bubble {
+    max-width: 400px; /* 태블릿에서 사용자 메시지 */
+  }
+
+  .bot-option-item {
+    padding: 10px 16px;
+  }
+
+  .option-emoji {
+    font-size: 20px;
+  }
+
+  .option-title {
+    font-size: 15px;
+  }
+
+  .option-desc {
+    font-size: 13px;
+  }
+
+  .bot-calendar-section {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .calendar-header {
+    margin-bottom: 16px;
+  }
+
+  .calendar-nav-button {
+    font-size: 24px;
+    padding: 10px 16px;
+  }
+
+  .calendar-month-year {
+    font-size: 18px;
+  }
+
+  .calendar-instruction {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .calendar-weekday {
+    font-size: 14px;
+    padding: 10px 4px;
+  }
+
+  .calendar-day {
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .calendar-selected-info {
+    font-size: 14px;
+    margin-top: 16px;
+    padding: 12px 16px;
+  }
+  
+  .bot-avatar, .user-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  
+  .choice-options {
+    gap: 16px;
+  }
+  
+  .choice-option {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  
+  .option-label {
+    font-size: 18px;
+  }
+  
+  .option-description {
+    font-size: 14px;
+  }
+  
+  .text-input {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 16px;
+    min-height: 120px;
+  }
+  
+  .action-buttons {
+    padding: 30px;
+  }
+  
+  .submit-button {
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 16px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.choice-option:focus,
+.text-input:focus,
+.submit-button:focus,
+.back-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
