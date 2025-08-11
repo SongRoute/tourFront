@@ -160,14 +160,6 @@ const Header = ({
         {renderRightButton()}
       </div>
       
-      {/* Progress indicator for chatbot page */}
-      {location.pathname === '/chatbot' && (
-        <div className="header-progress">
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: '60%' }} />
-          </div>
-        </div>
-      )}
     </header>
   );
 };

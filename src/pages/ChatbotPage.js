@@ -275,13 +275,7 @@ const ChatbotPage = () => {
           }
         />
         
-        {/* Progress Bar */}
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-          />
-        </div>
+
 
         {/* Chat Content */}
         <div className="chat-content">
