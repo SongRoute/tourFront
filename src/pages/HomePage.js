@@ -179,6 +179,12 @@ const HomePage = () => {
     }
   };
 
+  // Hot spot 클릭 핸들러
+  const handleHotSpotClick = (spotId) => {
+    console.log('Hot spot 클릭됨, spot.id:', spotId);
+    navigate(`/place/${spotId}`);
+  };
+
   useEffect(() => {
     getCurrentLocation();
   }, []);
@@ -206,7 +212,19 @@ const HomePage = () => {
             onScroll={handleSliderScroll}
           >
             {hotSpots.map((spot, index) => (
-              <div key={spot.id} className="hero-slide">
+              <div 
+                key={spot.id} 
+                className="hero-slide clickable"
+                onClick={() => handleHotSpotClick(spot.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleHotSpotClick(spot.id);
+                  }
+                }}
+              >
                 <div className="slide-image-container">
                   <img 
                     className="slide-image" 

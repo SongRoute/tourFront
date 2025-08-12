@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import RecommendationCard from '../components/RecommendationCard';
 import './RecommendationPage.css';
 
 const RecommendationPage = () => {
@@ -83,50 +84,11 @@ const RecommendationPage = () => {
         {/* Recommendations List */}
         <div className="recommendations-list">
           {recommendations.places.map((place, index) => (
-            <div key={place.id} className="recommendation-card" style={{animationDelay: `${index * 0.1}s`}}>
-              <div className="card-image">
-                <img src={place.image} alt={place.name} />
-                <div className="card-badge">
-                  {index === 0 ? '🥇 최고 추천' : index === 1 ? '🥈 추천' : '🥉 추천'}
-                </div>
-              </div>
-              
-              <div className="card-content">
-                <div className="card-header">
-                  <h3 className="place-name">{place.name}</h3>
-                  <div className="rating">
-                    <span className="rating-star">⭐</span>
-                    <span className="rating-value">{place.rating}</span>
-                  </div>
-                </div>
-                
-                <p className="place-description">{place.description}</p>
-                
-                <div className="place-category">
-                  <span className="category-tag">
-                    {place.category === 'culture' && '🏛️ 문화/역사'}
-                    {place.category === 'nature' && '🌿 자연/힐링'}
-                    {place.category === 'urban' && '🏙️ 도시/쇼핑'}
-                    {place.category === 'adventure' && '🏔️ 모험/액티비티'}
-                  </span>
-                </div>
-
-                <div className="card-actions">
-                  <button 
-                    className="detail-button"
-                    onClick={() => {
-                      console.log('상세 정보 버튼 클릭됨, place.id:', place.id);
-                      navigate(`/place/${place.id}`);
-                    }}
-                  >
-                    상세 정보
-                  </button>
-                  <button className="bookmark-button" aria-label="북마크">
-                    🔖
-                  </button>
-                </div>
-              </div>
-            </div>
+            <RecommendationCard 
+              key={place.id} 
+              place={place} 
+              index={index} 
+            />
           ))}
         </div>
 

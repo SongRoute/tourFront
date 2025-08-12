@@ -1,0 +1,376 @@
+/* RecommendationCard.css */
+
+.recommendation-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Horizontal Card Layout */
+.recommendation-card-horizontal {
+  width: 100%;
+  max-width: 350px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.5s ease-out;
+  animation-fill-mode: both;
+  position: relative;
+}
+
+.recommendation-card-horizontal::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background-color: #8C8C8C;
+}
+
+.recommendation-card-horizontal.clickable:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.card-content-horizontal {
+  flex: 1;
+  padding-left: 2px;
+  padding-right: 2px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 19px;
+  display: flex;
+}
+
+.place-title {
+  align-self: stretch;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-size: 11px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.place-description-horizontal {
+  align-self: stretch;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-size: 11px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.place-info {
+  align-self: stretch;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: #5A5A5A;
+  font-size: 11px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-image-horizontal {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.recommendation-card.clickable {
+  cursor: pointer;
+}
+
+.recommendation-card.clickable:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommendation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recommendation-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  backdrop-filter: blur(10px);
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.place-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff3cd;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.rating-star {
+  font-size: 14px;
+}
+
+.rating-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #856404;
+}
+
+.place-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+}
+
+.place-category {
+  margin-bottom: 16px;
+}
+
+.category-tag {
+  display: inline-block;
+  background: #f8f9fa;
+  color: #495057;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.detail-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.detail-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+  pointer-events: none;
+}
+
+.recommendation-card:hover .detail-info {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+  transform: translateY(-1px);
+}
+
+.bookmark-button {
+  background: #f8f9fa;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-button:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
+}
+
+.bookmark-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .card-content {
+    padding: 16px;
+  }
+  
+  .recommendation-card-horizontal {
+    width: 100%;
+    max-width: none;
+    margin: 0 10px;
+  }
+  
+  .place-title,
+  .place-description-horizontal,
+  .place-info {
+    font-size: 10px;
+  }
+  
+  .card-content-horizontal {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+  
+  .card-image-horizontal {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-content {
+    padding: 14px;
+  }
+  
+  .place-name {
+    font-size: 16px;
+  }
+}
+
+/* 태블릿 크기에서의 스타일링 */
+@media (min-width: 768px) {
+  .recommendation-card {
+    max-width: none;
+  }
+  
+  .card-image {
+    height: 200px;
+  }
+  
+  .card-content {
+    padding: 25px;
+  }
+  
+  .place-name {
+    font-size: 20px;
+  }
+  
+  .place-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .card-actions {
+    gap: 16px;
+  }
+  
+  .detail-info {
+    padding: 16px 20px;
+  }
+  
+  .detail-text {
+    font-size: 16px;
+  }
+  
+  .bookmark-button {
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+  }
+  
+  .recommendation-card-horizontal {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 20px;
+  }
+  
+  .place-title,
+  .place-description-horizontal,
+  .place-info {
+    font-size: 13px;
+  }
+  
+  .card-image-horizontal {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

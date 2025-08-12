@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import RecommendationCard from '../components/RecommendationCard';
 import ApiService from '../services/api';
 import './PlaceDetailPage.css';
 
 const PlaceDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const sliderRef = useRef(null);
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [userReview, setUserReview] = useState({ rating: 5, comment: '' });
+  const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const [crowdInfo, setCrowdInfo] = useState(null);
+  const [weatherInfo, setWeatherInfo] = useState(null);
 
   useEffect(() => {
     loadPlaceDetails();
     checkBookmarkStatus();
+    loadNearbyPlaces();
+    initializeInfo();
   }, [id]);
 
   const loadPlaceDetails = async () => {
@@ -53,15 +58,87 @@ const PlaceDetailPage = () => {
     }
   };
 
-  const handleReviewSubmit = async () => {
-    try {
-      await ApiService.sendFeedback(id, userReview.rating, userReview.comment);
-      setShowReviewForm(false);
-      setUserReview({ rating: 5, comment: '' });
-      // 리뷰 제출 후 상세 정보 다시 로드
-      loadPlaceDetails();
-    } catch (error) {
-      console.error('리뷰 제출 오류:', error);
+  const loadNearbyPlaces = () => {
+    // 현재 관광지와 다른 카테고리의 인근 관광지를 모의 데이터로 생성
+    const mockNearbyPlaces = [
+      {
+        id: parseInt(id) + 100,
+        name: "인근 추천 관광지 1",
+        description: "현재 위치에서 가까운 거리에 있는 아름다운 관광명소입니다.",
+        image: "https://picsum.photos/300/200?random=1",
+        rating: 4.5,
+        category: "nature"
+      },
+      {
+        id: parseInt(id) + 101,
+        name: "인근 추천 관광지 2", 
+        description: "역사적 가치가 높은 문화유산으로 꼭 방문해볼 만한 곳입니다.",
+        image: "https://picsum.photos/300/200?random=2",
+        rating: 4.3,
+        category: "culture"
+      },
+      {
+        id: parseInt(id) + 102,
+        name: "인근 추천 관광지 3",
+        description: "현지인들이 사랑하는 숨은 명소로 특별한 경험을 선사합니다.",
+        image: "https://picsum.photos/300/200?random=3", 
+        rating: 4.7,
+        category: "urban"
+      }
+    ];
+    
+    setNearbyPlaces(mockNearbyPlaces);
+  };
+
+  // 혼잡도와 날씨 정보 초기화 (페이지당 한 번만)
+  const initializeInfo = () => {
+    // 혼잡도 더미 데이터 생성
+    const levels = ['low', 'medium', 'high'];
+    const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+    const newCrowdInfo = {
+      level: randomLevel,
+      color: randomLevel === 'low' ? '#22c55e' : randomLevel === 'medium' ? '#eab308' : '#ef4444',
+      text: randomLevel === 'low' ? '원활' : randomLevel === 'medium' ? '보통' : '혼잡'
+    };
+
+    // 날씨 더미 데이터 생성
+    const weathers = [
+      { condition: 'sunny', icon: '☀️', text: '맑음' },
+      { condition: 'cloudy', icon: '☁️', text: '흐림' },
+      { condition: 'rainy', icon: '🌧️', text: '비' },
+      { condition: 'partly-cloudy', icon: '⛅', text: '구름조금' }
+    ];
+    const randomWeather = weathers[Math.floor(Math.random() * weathers.length)];
+    const temperature = Math.floor(Math.random() * 30) + 5; // 5-35도
+    
+    const newWeatherInfo = {
+      ...randomWeather,
+      temperature
+    };
+
+    setCrowdInfo(newCrowdInfo);
+    setWeatherInfo(newWeatherInfo);
+  };
+
+  // 이미지 슬라이더 스크롤 핸들러
+  const handleSliderScroll = () => {
+    if (sliderRef.current) {
+      const scrollLeft = sliderRef.current.scrollLeft;
+      const slideWidth = sliderRef.current.offsetWidth;
+      const newActiveSlide = Math.round(scrollLeft / slideWidth);
+      setActiveImageIndex(newActiveSlide);
+    }
+  };
+
+  // 특정 이미지로 스크롤
+  const scrollToImage = (index) => {
+    if (sliderRef.current) {
+      const slideWidth = sliderRef.current.offsetWidth;
+      sliderRef.current.scrollTo({
+        left: slideWidth * index,
+        behavior: 'smooth'
+      });
+      setActiveImageIndex(index);
     }
   };
 
@@ -120,31 +197,62 @@ const PlaceDetailPage = () => {
 
         {/* Image Gallery */}
         <div className="image-gallery">
-          <div className="main-image">
-            <img 
-              src={mockImages[activeImageIndex]} 
-              alt={place.name}
-              className="place-image"
-            />
-            <button 
-              className={`bookmark-floating ${isBookmarked ? 'bookmarked' : ''}`}
-              onClick={toggleBookmark}
-              aria-label={isBookmarked ? '북마크 해제' : '북마크 추가'}
+          <div className="image-slider-container">
+            <div 
+              className="image-slider"
+              ref={sliderRef}
+              onScroll={handleSliderScroll}
             >
-              {isBookmarked ? '❤️' : '🤍'}
-            </button>
-          </div>
-          
-          <div className="image-thumbnails">
-            {mockImages.map((img, index) => (
-              <button
-                key={index}
-                className={`thumbnail ${index === activeImageIndex ? 'active' : ''}`}
-                onClick={() => setActiveImageIndex(index)}
-              >
-                <img src={img} alt={`${place.name} ${index + 1}`} />
-              </button>
-            ))}
+              {mockImages.map((img, index) => (
+                <div key={index} className="image-slide">
+                  <img 
+                    src={img} 
+                    alt={`${place.name} ${index + 1}`}
+                    className="place-image"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                  
+                  {/* Info Icons - only show on first image */}
+                  {index === activeImageIndex && crowdInfo && weatherInfo && (
+                    <div className="info-icons">
+                      {/* Crowd Level */}
+                      <div className="info-icon crowd-info">
+                        <div className="icon-container">
+                          <div 
+                            className="crowd-indicator"
+                            style={{ backgroundColor: crowdInfo.color }}
+                          >
+                            👤
+                          </div>
+                          <span className="info-text">{crowdInfo.text}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Weather Info */}
+                      <div className="info-icon weather-info">
+                        <div className="icon-container">
+                          <div className="weather-icon">
+                            {weatherInfo.icon}
+                          </div>
+                          <span className="info-text">{weatherInfo.temperature}°C</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {/* Pagination dots */}
+            <div className="image-pagination">
+              {mockImages.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`pagination-dot ${index === activeImageIndex ? 'active' : ''}`}
+                  onClick={() => scrollToImage(index)}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -152,13 +260,6 @@ const PlaceDetailPage = () => {
         <div className="place-info">
           <div className="place-header">
             <h2 className="place-name">{place.name}</h2>
-            <div className="rating-section">
-              <span className="rating-stars">
-                {'⭐'.repeat(Math.floor(place.rating))}
-              </span>
-              <span className="rating-value">{place.rating}</span>
-              <span className="rating-count">({place.reviewCount || 127}개 리뷰)</span>
-            </div>
           </div>
 
           <p className="place-description">{place.description}</p>
@@ -236,78 +337,21 @@ const PlaceDetailPage = () => {
           </div>
         )}
 
-        {/* Reviews Section */}
-        <div className="reviews-section">
-          <div className="reviews-header">
-            <h3>리뷰</h3>
-            <button 
-              className="write-review-button"
-              onClick={() => setShowReviewForm(!showReviewForm)}
-            >
-              {showReviewForm ? '취소' : '리뷰 작성'}
-            </button>
+        {/* Nearby Places Section */}
+        <div className="nearby-places-section">
+          <div className="section-header">
+            <h3>🗺️ 인근 추천 관광지</h3>
+            <p className="section-subtitle">이곳과 함께 방문하면 좋은 관광지들</p>
           </div>
 
-          {showReviewForm && (
-            <div className="review-form">
-              <div className="rating-input">
-                <label>평점:</label>
-                <div className="star-rating">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      className={`star ${star <= userReview.rating ? 'active' : ''}`}
-                      onClick={() => setUserReview(prev => ({...prev, rating: star}))}
-                    >
-                      ⭐
-                    </button>
-                  ))}
-                </div>
-              </div>
-              
-              <textarea
-                className="review-textarea"
-                placeholder="이곳에 대한 솔직한 후기를 남겨주세요..."
-                value={userReview.comment}
-                onChange={(e) => setUserReview(prev => ({...prev, comment: e.target.value}))}
-                rows={4}
+          <div className="nearby-places-list">
+            {nearbyPlaces.map((place, index) => (
+              <RecommendationCard 
+                key={place.id} 
+                place={place} 
+                index={index} 
               />
-              
-              <button 
-                className="submit-review-button"
-                onClick={handleReviewSubmit}
-                disabled={!userReview.comment.trim()}
-              >
-                리뷰 등록
-              </button>
-            </div>
-          )}
-
-          {/* Sample Reviews */}
-          <div className="reviews-list">
-            <div className="review-item">
-              <div className="reviewer-info">
-                <div className="reviewer-avatar">👤</div>
-                <div className="reviewer-details">
-                  <span className="reviewer-name">김여행</span>
-                  <div className="review-rating">⭐⭐⭐⭐⭐</div>
-                </div>
-              </div>
-              <p className="review-text">정말 아름다운 곳이에요! 사진으로만 보던 것보다 훨씬 웅장하고 감동적이었습니다.</p>
-              <span className="review-date">2024.01.15</span>
-            </div>
-
-            <div className="review-item">
-              <div className="reviewer-info">
-                <div className="reviewer-avatar">👤</div>
-                <div className="reviewer-details">
-                  <span className="reviewer-name">박관광</span>
-                  <div className="review-rating">⭐⭐⭐⭐</div>
-                </div>
-              </div>
-              <p className="review-text">가족과 함께 방문했는데 모든 연령대가 즐길 수 있는 좋은 장소였어요.</p>
-              <span className="review-date">2024.01.10</span>
-            </div>
+            ))}
           </div>
         </div>
 
