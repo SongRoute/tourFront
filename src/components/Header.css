@@ -112,19 +112,25 @@
 }
 
 .location-icon {
-  width: 18px;
-  height: 23px;
-  background: rgba(255, 255, 255, 0.3);
-  border: none;
-  cursor: pointer;
+  width: 40px; /* 버튼 크기 */
+  height: 40px;
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
   transition: all 0.3s ease;
   position: relative;
   border-radius: 3px;
+  padding: 0; /* 여백 제거 */
 }
 
 .location-icon:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.4);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.4); /* 배경색 변경 */
+  transform: scale(1.1); /* 크기 확대 */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* 빛나는 효과 */
+}
+
+.location-icon:active {
+  transform: scale(0.95); /* 살짝 눌리는 효과 */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 그림자 축소 */
 }
 
 .location-icon:active:not(:disabled) {
@@ -140,20 +146,6 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-.location-icon::before {
-  content: '📍';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 12px;
-  filter: brightness(0) invert(1);
-}
-
-.location-icon.loading::before {
-  content: '🔄';
-  animation: rotate 1s linear infinite;
-}
 
 @keyframes pulse {
   0%, 100% {

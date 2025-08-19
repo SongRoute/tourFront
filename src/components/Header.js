@@ -21,7 +21,7 @@ const Header = ({
     
     if (path === '/') {
       return {
-        title: '여행 추천',
+        title: '여기강원 Yeogigangwon',
         showBackButton: false,
         showHomeButton: false,
         showLocationInfo: true
@@ -106,13 +106,15 @@ const Header = ({
       return (
         <div className="location-container">
           <div className="location-info">
-            <button 
+            <button ㄱ
               className={`location-icon ${locationData.loading ? 'loading' : ''}`}
               onClick={onLocationRefresh}
               disabled={locationData.loading}
               aria-label="현재 위치 새로고침"
               title={locationData.loading ? '위치 정보를 가져오는 중...' : '클릭하여 위치 새로고침'}
-            />
+            >
+              <img src="/assets/refresh-icon.png" alt="새로고침 아이콘" className="refresh-icon" />
+            </button>
             <div className="location-text">
               {locationData.loading ? '위치 확인 중...' : locationData.error ? '위치 정보 없음' : locationData.city}
             </div>

@@ -37,7 +37,8 @@
   padding: 2px;
   transition: all 0.2s ease;
 }
-
+ /*여기강원로고*/
+ 
 .header-logo:hover {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.3);
@@ -108,8 +109,8 @@
 
 .slide-image-container {
   position: relative;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 550px;  
   border-radius: 0;
   overflow: hidden;
   margin-bottom: 0;
@@ -117,8 +118,8 @@
 }
 
 .slide-image {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   transition: transform 0.3s ease;
@@ -131,19 +132,21 @@
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.2) 0%,
     rgba(0, 0, 0, 0.6) 100%
   );
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
+   align-items: center; /* 텍스트를 가운데 정렬 */
   padding: 20px;
   pointer-events: none;
 }
 
-.slide-badge {
+
+.slide-badge { /* 배지 스타일 */
   background: rgba(255, 255, 255, 0.95);
   color: #667eea;
   padding: 6px 14px;
@@ -157,19 +160,37 @@
   align-self: flex-start;
 }
 
-.slide-title-overlay {
-  background: rgba(0, 0, 0, 0.7);
+.slide-title-overlay { /* 타이틀 오버레이 스타일*/
+ position: absolute;
+  bottom: 75px; /* 디스크립션 위로 30px 정도 띄움 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
   color: white;
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 18px;
   font-weight: 700;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
-  text-align: right;
-  align-self: flex-start;
+  text-align: center;
+  
 }
 
+.slide-description {
+  position: absolute; /* 이미지 위에 배치 */
+  bottom: 60px;/*미지 하단에서 60px 위에 위치 */
+  left: 50%; /* 가로 중앙 정렬 */
+  transform: translateX(-50%); /* 중앙 정렬 보정 */
+  color: white; /* 텍스트 색상 */
+  font-size: 14px; /* 텍스트 크기 */
+  font-weight: 400; /* 텍스트 두께 */
+  text-align: center; /* 텍스트 정렬 */
+  white-space: nowrap; /* 텍스트를 한 줄로 강제 */
+  background: none; /* 배경 없음 */
+   padding: 0; /* 여백 제거 */
+  margin: 0; /* 외부 여백 제거 */
+  border-radius: 8px; /* 배경 모서리 둥글게 */
+  pointer-events: none; /* 클릭 이벤트 차단 */
+}
 
 
 .hero-pagination {
@@ -180,7 +201,7 @@
   display: flex;
   justify-content: center;
   gap: 8px;
-  z-index: 10;
+  z-index: 12;
   pointer-events: auto;
 }
 
@@ -676,4 +697,39 @@
 
 .cards-section::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10; /* 슬라이더 위로 버튼을 올리기 위해 z-index 추가 */
+  transition: none;
+}
+
+.slider-button img {
+  max-width: 100%; /* 이미지가 부모 요소를 넘지 않도록 설정 */
+  max-height: 100%; /* 이미지가 부모 요소를 넘지 않도록 설정 */
+  object-fit: contain; /* 이미지의 원본 비율을 유지 */
+  width: 20px; /* 적절한 크기로 설정 */
+  height: 20px; /* 적절한 크기로 설정 */
+}
+
+
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
 }
